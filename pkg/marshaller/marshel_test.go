@@ -22,7 +22,7 @@ func (s *MarshallerTestSuite) SetupSuite() {
 
 var MockEntry = Entry{
 	Title:    mockTitle,
-	SubTitle: mockSubtitle,
+	Subtitle: mockSubtitle,
 	Article: Article{
 		GeneralInfo: mockArticleGeneralInfo,
 		Description: mockArticleDescription,
@@ -44,6 +44,6 @@ func (s *MarshallerTestSuite) TestMarshalHTMLPage() {
 
 	log.Debugf("%v", *fileNames)
 
-	err = Marhal(*fileNames, MockEntry)
+	err = Marshal(*fileNames, MockEntry)
 	require.NoError(s.T(), err)
 }

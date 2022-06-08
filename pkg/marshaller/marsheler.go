@@ -7,7 +7,7 @@ import (
 
 type Entry struct {
 	Title    string ``
-	SubTitle string
+	Subtitle string
 	Article
 	Shipping
 	Legal
@@ -33,17 +33,24 @@ type Dsgvo string
 
 // ToDo: caching
 
-func Marhal(fileNames []string, entry Entry) error {
-	tmpl := template.Must(
-		template.New("html-tmpl").ParseFiles(fileNames...),
-	)
-
-	file, err := os.Create(fileNames[0])
+func Marshal(fileNames []string, entry Entry) error {
+	file, err := os.ReadFile(fileNames[0])
 	if err != nil {
 		return err
 	}
 
-	err = tmpl.Execute(file, entry)
+	tmpl, err := template.New("html-tmpl").Parse(string(file))
+	if err != nil {
+		return err
+	}
+
+	// ToDo: cache with file
+	newFile, err := os.Create(fileNames[0] + ".html")
+	if err != nil {
+		return err
+	}
+
+	err = tmpl.Execute(newFile, entry)
 
 	return err
 }
