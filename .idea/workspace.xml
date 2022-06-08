@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d36e2ec5-d0bb-4259-add9-3a7ef9e2c1ac" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/marshaller/marshel_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/marshaller/marsheler.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/marshaller/test_data_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/base.html" afterDir="false" />
@@ -20,8 +22,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Go File" />
         <option value="HTML File" />
+        <option value="Go File" />
       </list>
     </option>
   </component>
@@ -91,6 +93,26 @@
     "settings.editor.selected.configurable": "go.sdk"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="TestMarshalHTMLPage in descriptinator/pkg/marshaller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="descriptinator" />
+      <working_directory value="$PROJECT_DIR$/pkg/marshaller" />
+      <parameters value=" -testify.m ^TestMarshalHTMLPage$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="descriptinator/pkg/marshaller" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestMarshallerTestSuite\E$/^\QTestMarshalHTMLPage\E$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestMarshalHTMLPage in descriptinator/pkg/marshaller" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />

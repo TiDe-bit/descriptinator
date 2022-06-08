@@ -21,10 +21,6 @@ func NewServinator(address string) *Servinator {
 	}
 }
 
-func (s *Servinator) fooHandler() gin.HandlerFunc {
-
-}
-
 func (s *Servinator) routing() {
 	s.gin.Group("foo", func(ctx *gin.Context) {
 		ctx.HTML(
@@ -36,7 +32,7 @@ func (s *Servinator) routing() {
 }
 
 func (s *Servinator) Serve() {
-	files, err := s.getHtmlFiles()
+	files, err := GetHtmlFiles()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,16 +47,22 @@ func (s *Servinator) Serve() {
 	}
 }
 
-func (s *Servinator) getHtmlFiles() (*[]string, error) {
+const htmlFolderName = "html"
+
+func GetHtmlFiles() (*[]string, error) {
 	workdir, err := os.Getwd()
 	if err != nil {
 		return nil, err
 	}
 
+	log.Debugf("WD: %s", workdir)
+
 	rootDirFolders := strings.Split(workdir, string(os.PathSeparator))
 	log.Debugf("rootDirsFolders: %v, %d", rootDirFolders, len(rootDirFolders))
+
 	rootDirFolders = rootDirFolders[:len(rootDirFolders)-2]
-	rootDirPath := strings.Join(rootDirFolders, "")
+
+	rootDirPath := strings.Join(rootDirFolders, string(os.PathSeparator))
 	log.Debugf("root path: %s", rootDirPath)
 
 	err = os.Chdir(rootDirPath)
@@ -68,15 +70,24 @@ func (s *Servinator) getHtmlFiles() (*[]string, error) {
 		return nil, err
 	}
 
-	dir, err := os.ReadDir("html")
+	dir, err := os.ReadDir(htmlFolderName)
 	if err != nil {
 		return nil, err
 	}
 
 	fileNames := make([]string, len(dir))
 	for i, entry := range dir {
-		fileNames[i] = entry.Name()
+		fileNames[i] = strings.Join(
+			[]string{
+				rootDirPath,
+				htmlFolderName,
+				entry.Name(),
+			},
+			string(os.PathSeparator),
+		)
 	}
+
+	log.Debugf("filenames: %v", fileNames)
 
 	return &fileNames, nil
 }
