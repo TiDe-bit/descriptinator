@@ -1,10 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
+<div class="pagetitle">DELLMANN - OnlineShop</div>
+<div class="body header">
+    <h1>{{ .Title }}</h1>
+    <h2>{{ .Subtitle }} <!-- shipping info --></h2>
+</div>
 
-<div></div>
-<div></div>
-<div></div>
+<div class="divider"></div>
+
+<div class="header article">Artikel / Eignung</div>
+<div class="body description">
+    <p>
+        <b>{{ .Artikel.GeneralInfo }}</b>
+        {{ .Artikel.Description }}
+        <div class="shipping-info-short">{{ .Artikel.Shipping }}</div>
+    </p>
+    <p>{{ .Artikel.Fitting }}</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="header condition">Zustand</div>
+<div class="body condition">
+    <p>{{ .Article.Condition }}</p>
+</div>
+
+<div class="divider"></div>
+
+<div class="header shipping">Versand/Abholung</div>
+<div class="body shipping">
+    {{ .Shipping }}
+</div>
+
+<div class="header auktion">Nach Auktionsende oder Sofort-Kauf</div>
+<div class="body auktion">
+    {{ .Auction }}
+</div>
+
+<div class="header legal">Versand/Abholung</div>
+<div class="body legal">
+    {{ .Legal }}
+</div>
+
+<div class="header seller">Anbieter</div>
+<div class="body seller">
+    {{ .Seller }}
+</div>
+
+<div class="header dsgvo">Datenschutz</div>
+<div class="body dsgvo">
+    {{ .Dsgvo }}
+</div>
+
+<nav></nav>
 
 </body>
 </html>
