@@ -1,8 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+        body {
+            display: block;
+        }
+        .divider {
+            height: 25px;
+            width: 100%;
+        }
+        .pagetitle{
+            color: #fff;
+            background-color: #333;
+        }
+
+        .header{
+            background-color: #3ee;
+        }
+
+        .body {
+            background-color: #ee3;
+            padding: 10px;
+        }
+
+    </style>
+</head>
 <body>
 <div class="pagetitle">DELLMANN - OnlineShop</div>
-<div class="body header">
+<div class="body title">
     <h1>{{ .Title }}</h1>
     <h2>{{ .Subtitle }} <!-- shipping info --></h2>
 </div>
