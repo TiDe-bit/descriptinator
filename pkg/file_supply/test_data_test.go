@@ -1,4 +1,4 @@
-package marshaller
+package file_supply
 
 const mockTitle = "2 Pakete SWIRL M 50 Micro Por - Staubsaugerbeutel"
 const mockSubtitle = "- ohne die Umkartons, daher günstigerer Versand möglich -"

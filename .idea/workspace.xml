@@ -5,10 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d36e2ec5-d0bb-4259-add9-3a7ef9e2c1ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/demo/demo.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/file_supply/file_loader.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/file_supply/file_supply.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/html/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/html/base.html.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/base.html.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/marshaller/marshel_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/marshel_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/marshaller/marsheler.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/marsheler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/marshaller/test_data_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/test_data_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,30 +71,48 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
-    &quot;configurable..is.expanded&quot;: &quot;false&quot;,
-    &quot;configurable.GoLibrariesConfigurable.is.expanded&quot;: &quot;true&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/tidy&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;go.sdk&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "DefaultGoTemplateProperty": "Go File",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "code.cleanup.on.save": "true",
+    "configurable..is.expanded": "false",
+    "configurable.GoLibrariesConfigurable.is.expanded": "true",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/tdellmann",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "settings.editor.selected.configurable": "AtomConfig"
   }
-}</component>
-  <component name="RunManager" selected="Go Test.TestMarshallerTestSuite in descriptinator/pkg/marshaller">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/template" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.MarshallerTestSuite in descriptinator/pkg/marshaller">
+    <configuration name="MarshallerTestSuite in descriptinator/pkg/marshaller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="descriptinator" />
+      <working_directory value="$PROJECT_DIR$/pkg/marshaller" />
+      <parameters value=" -testify.m ^TestMarshalHTMLPage$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="descriptinator/pkg/marshaller" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestMarshallerTestSuite\E$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestMarshalHTMLPage in descriptinator/pkg/marshaller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="descriptinator" />
       <working_directory value="$PROJECT_DIR$/pkg/marshaller" />
@@ -117,6 +140,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.MarshallerTestSuite in descriptinator/pkg/marshaller" />
         <item itemvalue="Go Test.TestMarshallerTestSuite in descriptinator/pkg/marshaller" />
         <item itemvalue="Go Test.TestMarshalHTMLPage in descriptinator/pkg/marshaller" />
       </list>

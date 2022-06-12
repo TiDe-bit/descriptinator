@@ -1,4 +1,4 @@
-package marshaller
+package file_supply
 
 import (
 	"descriptinator/pkg/server"
@@ -44,6 +44,7 @@ func (s *MarshallerTestSuite) TestMarshalHTMLPage() {
 
 	log.Debugf("%v", *fileNames)
 
-	err = Marshal(*fileNames, MockEntry)
+	files := *fileNames
+	err = marshalOne(files[0], MockEntry)
 	require.NoError(s.T(), err)
 }
