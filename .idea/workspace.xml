@@ -5,14 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d36e2ec5-d0bb-4259-add9-3a7ef9e2c1ac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/file_supply/file_loader.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/file_supply/file_supply.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/server/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/template/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/base.html.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/base.html.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/marshaller/marshel_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/marshel_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/marshaller/marsheler.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/marsheler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/marshaller/test_data_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/test_data_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,10 +82,10 @@
     "configurable..is.expanded": "false",
     "configurable.GoLibrariesConfigurable.is.expanded": "true",
     "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/Users/tdellmann",
+    "last_opened_file_path": "/home/tidy",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "settings.editor.selected.configurable": "AtomConfig"
+    "settings.editor.selected.configurable": "com.goide.configuration.GoProjectSettingsConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -99,20 +93,7 @@
       <recent name="$PROJECT_DIR$/template" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.MarshallerTestSuite in descriptinator/pkg/marshaller">
-    <configuration name="MarshallerTestSuite in descriptinator/pkg/marshaller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="descriptinator" />
-      <working_directory value="$PROJECT_DIR$/pkg/marshaller" />
-      <parameters value=" -testify.m ^TestMarshalHTMLPage$" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="descriptinator/pkg/marshaller" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestMarshallerTestSuite\E$" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager">
     <configuration name="TestMarshalHTMLPage in descriptinator/pkg/marshaller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="descriptinator" />
       <working_directory value="$PROJECT_DIR$/pkg/marshaller" />
@@ -126,22 +107,8 @@
       <pattern value="^\QTestMarshallerTestSuite\E$/^\QTestMarshalHTMLPage\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestMarshallerTestSuite in descriptinator/pkg/marshaller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="descriptinator" />
-      <working_directory value="$PROJECT_DIR$/pkg/marshaller" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="descriptinator/pkg/marshaller" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestMarshallerTestSuite\E$" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.MarshallerTestSuite in descriptinator/pkg/marshaller" />
-        <item itemvalue="Go Test.TestMarshallerTestSuite in descriptinator/pkg/marshaller" />
         <item itemvalue="Go Test.TestMarshalHTMLPage in descriptinator/pkg/marshaller" />
       </list>
     </recent_temporary>
