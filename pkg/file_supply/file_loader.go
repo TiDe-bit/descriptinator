@@ -7,7 +7,7 @@ import (
 
 type FileData *[]byte
 
-func LoadFile(fileName string) (data FileData, ok bool) {
+func LoadFile(fileName string) (FileData, bool) {
 	file, err := os.Open(fileName)
 	if err != nil {
 		logrus.WithError(err).Debugf("can't load file %s", fileName)
@@ -15,10 +15,12 @@ func LoadFile(fileName string) (data FileData, ok bool) {
 	}
 	defer file.Close()
 
-	_, err = file.Read(*data)
+	var buffer []byte
+
+	_, err = file.Read(buffer)
 	if err != nil {
 		return nil, false
 	}
 
-	return data, true
+	return &buffer, true
 }

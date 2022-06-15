@@ -8,7 +8,7 @@ import (
 )
 
 type Entry struct {
-	ID       string
+	KundenNr string
 	Title    string ``
 	Subtitle string
 	Article
@@ -50,7 +50,7 @@ func (m *Marshaller) CreatDescription() (FileData, error) {
 		return nil, err
 	}
 
-	tmplPath, err := getTmplPath(rootPath)
+	tmplPath, err := getTmplFile(rootPath)
 	if err != nil {
 		return nil, err
 	}
@@ -69,11 +69,12 @@ func (m *Marshaller) CreatDescription() (FileData, error) {
 }
 
 func (m *Marshaller) getFileName() string {
-	return getFileName(m.entry)
+	return getFileDestination(m.entry)
 }
 
-func getFileName(entry Entry) string {
-	return fmt.Sprintf("%s.html", entry.ID)
+func getFileDestination(entry Entry) string {
+	wd, _ := os.Getwd()
+	return fmt.Sprintf("%s/html/%s.html", wd, entry.KundenNr)
 }
 
 func marshalOne(fileName string, entry Entry) error {
@@ -87,7 +88,7 @@ func marshalOne(fileName string, entry Entry) error {
 		return err
 	}
 
-	newFile, err := os.Create(getFileName(entry))
+	newFile, err := os.Create(getFileDestination(entry))
 	if err != nil {
 		return err
 	}

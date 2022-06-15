@@ -45,7 +45,7 @@ func gotoTmpl() (string, error) {
 
 const templateFolderName = "template"
 
-func getTmplPath(rootPath string) (string, error) {
+func getTmplFile(rootPath string) (string, error) {
 	files, err := os.ReadDir(templateFolderName)
 	if err != nil {
 		return "", err

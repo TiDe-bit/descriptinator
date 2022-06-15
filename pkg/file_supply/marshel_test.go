@@ -1,7 +1,6 @@
 package file_supply
 
 import (
-	"descriptinator/pkg/server"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -21,6 +20,7 @@ func (s *MarshallerTestSuite) SetupSuite() {
 }
 
 var MockEntry = Entry{
+	KundenNr: "Demo",
 	Title:    mockTitle,
 	Subtitle: mockSubtitle,
 	Article: Article{
@@ -38,13 +38,15 @@ var MockEntry = Entry{
 }
 
 func (s *MarshallerTestSuite) TestMarshalHTMLPage() {
-	fileNames, err := server.GetHtmlFiles()
+	rootPath, err := gotoTmpl()
 	require.NoError(s.T(), err)
-	require.NotEmpty(s.T(), fileNames)
 
-	log.Debugf("%v", *fileNames)
-
-	files := *fileNames
-	err = marshalOne(files[0], MockEntry)
+	tmplPath, err := getTmplFile(rootPath)
 	require.NoError(s.T(), err)
+	require.NotEmpty(s.T(), tmplPath)
+	err = marshalOne(tmplPath, MockEntry)
+
+	fileData, ok := LoadFile(getFileDestination(MockEntry))
+	require.True(s.T(), ok)
+	require.NotNil(s.T(), fileData)
 }
