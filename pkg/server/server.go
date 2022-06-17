@@ -35,8 +35,14 @@ func (s *ServeSenator) Serve() {
 	}
 }
 
+type QueryParameterValue struct {
+	Used  bool
+	Value string
+}
+
 func (s *ServeSenator) HandleShipmentPath(gtx *gin.Context, engine *gin.Engine) {
-	queryParams := gtx.Params
+	queryParams := extractQueryParams(gtx.Params)
+	log.Debugf("params %+v", queryParams)
 
 	engine.Group(VERSAND_BRIEF, s.Handler(VERSAND_BRIEF))
 	engine.Group(string(VERSAND_PAKET), s.Handler(VERSAND_PAKET))
@@ -44,10 +50,26 @@ func (s *ServeSenator) HandleShipmentPath(gtx *gin.Context, engine *gin.Engine) 
 
 }
 
+func extractQueryParams(params gin.Params) map[Parameter]QueryParameterValue {
+	marshalingOptions := make(map[Parameter]QueryParameterValue)
+	queryParams := params
+
+	for key := range marshalingOptions {
+		value, ok := queryParams.Get(key.String())
+		if ok {
+			marshalingOptions[key] = QueryParameterValue{
+				Used:  ok,
+				Value: value,
+			}
+		}
+	}
+	return marshalingOptions
+}
+
 func (s *ServeSenator) marshalParams(params gin.Params) {
 	extraParams := make(map[Parameter]string, len(params))
 	for key := range extraParams {
-		extraParams[key] = params.ByName(string(key))
+		extraParams[key] = params.ByName(string(rune(key)))
 	}
 }
 
@@ -56,10 +78,10 @@ func (s *ServeSenator) Handler(method Versand) gin.HandlerFunc {
 	case VERSAND_BRIEF:
 
 	}
-}
 
-func (s *ServeSenator) getShipmentMethod(path string) Versand {
+	return func(context *gin.Context) {
 
+	}
 }
 
 func sendDescription(data file_supply.FileData) func(g *gin.Context) {

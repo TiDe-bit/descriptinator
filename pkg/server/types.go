@@ -12,15 +12,22 @@ const (
 	VERSAND_BRIEFTAUBE         = "brieftaube"
 )
 
-type Parameter string
+type Parameter int
 
 const (
-	Q_AMOUT Parameter = "amout"
+	Amount Parameter = iota + 1 // EnumIndex = 1
+	Legal                       // EnumIndex = 2
 )
+
+func (p Parameter) String() string {
+	return [...]string{"Amount", "Legal"}[p-1]
+}
+
+func (p Parameter) EnumIndex() int {
+	return int(p)
+}
 
 type IServer interface {
 	HandleShipmentPath(gtx *gin.Context, engine *gin.Engine)
-	Handler(method Versand) gin.HandlerFunc
 	marshalParams(params gin.Params)
-	getShipmentMethod(path string) Versand
 }

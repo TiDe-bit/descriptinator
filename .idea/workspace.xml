@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30732834-276b-4bb4-867e-5131cdd74446" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/pkg/server/server_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/demo/demo.html" beforeDir="false" afterPath="$PROJECT_DIR$/demo/demo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/html/base.html.html" beforeDir="false" afterPath="$PROJECT_DIR$/html/Demo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/file_supply/file_loader.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/file_loader.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/file_supply/file_supply.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/file_supply.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/file_supply/marshel_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/marshel_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/file_supply/marsheler.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/marsheler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/server/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/types.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +96,20 @@
       <recent name="$PROJECT_DIR$/template" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestMarshalHTMLPage in descriptinator/pkg/file_supply">
+  <component name="RunManager" selected="Go Test.TestExtractQueryParams in descriptinator/pkg/server">
+    <configuration name="TestExtractQueryParams in descriptinator/pkg/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="descriptinator" />
+      <working_directory value="$PROJECT_DIR$/pkg/server" />
+      <parameters value=" -testify.m ^TestExtractQueryParams$" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="descriptinator/pkg/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestServerTestSuite\E$/^\QTestExtractQueryParams\E$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestMarshalHTMLPage in descriptinator/pkg/file_supply" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="descriptinator" />
       <working_directory value="$PROJECT_DIR$/pkg/file_supply" />
@@ -126,6 +138,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestExtractQueryParams in descriptinator/pkg/server" />
         <item itemvalue="Go Test.TestMarshalHTMLPage in descriptinator/pkg/file_supply" />
         <item itemvalue="Go Test.TestMarshalHTMLPage in descriptinator/pkg/marshaller" />
       </list>
