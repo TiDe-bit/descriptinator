@@ -2,6 +2,7 @@ package server
 
 import (
 	"descriptinator/pkg/file_supply"
+	"descriptinator/pkg/marshaller"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -10,12 +11,14 @@ import (
 var _ IServer = &ServeSenator{}
 
 type ServeSenator struct {
-	address string
+	address    string
+	marshaller *marshaller.Marshaller
 }
 
 func NewServinator(address string) *ServeSenator {
 	return &ServeSenator{
-		address: address,
+		address:    address,
+		marshaller: new(marshaller.Marshaller),
 	}
 }
 
@@ -73,15 +76,19 @@ func (s *ServeSenator) marshalParams(params gin.Params) {
 	}
 }
 
-func (s *ServeSenator) Handler(method Versand) gin.HandlerFunc {
+func (s *ServeSenator) Handler(artikelNr string, method Versand) gin.HandlerFunc {
+	var data file_supply.FileData
 	switch method {
 	case VERSAND_BRIEF:
 
 	}
 
-	return func(context *gin.Context) {
+	entry := marshaller.DefaultEntry(artikelNr)
+	entry.WithTitle()
 
-	}
+	s.marshaller.CreatDescription()
+
+	return sendDescription(data)
 }
 
 func sendDescription(data file_supply.FileData) func(g *gin.Context) {

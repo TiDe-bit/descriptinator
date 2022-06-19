@@ -1,6 +1,7 @@
-package file_supply
+package marshaller
 
 import (
+	"descriptinator/pkg/file_supply"
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -38,15 +39,15 @@ var MockEntry = Entry{
 }
 
 func (s *MarshallerTestSuite) TestMarshalHTMLPage() {
-	rootPath, err := gotoTmpl()
+	rootPath, err := file_supply.gotoTmpl()
 	require.NoError(s.T(), err)
 
-	tmplPath, err := getTmplFile(rootPath)
+	tmplPath, err := file_supply.getTmplFile(rootPath)
 	require.NoError(s.T(), err)
 	require.NotEmpty(s.T(), tmplPath)
 	err = marshalOne(tmplPath, MockEntry)
 
-	fileData, ok := LoadFile(getFileDestination(MockEntry))
+	fileData, ok := file_supply.LoadFile(getFileDestination(MockEntry))
 	require.True(s.T(), ok)
 	require.NotNil(s.T(), fileData)
 }

@@ -24,3 +24,33 @@ func LoadFile(fileName string) (FileData, bool) {
 
 	return &buffer, true
 }
+
+func LoadLegalText(custom ...string) *string {
+	if len(custom) > 0 {
+		return nil
+	}
+	return nil
+}
+
+func LoadAuctionText(custom ...string) *string {
+	return nil
+}
+
+func LoadSellerText(custom ...string) *string {
+	return nil
+}
+
+func LoadBriefText() *string {
+
+	return nil
+}
+
+func LoadPaketText() *string {
+
+	return nil
+}
+
+func LoadPaketBrieftaube() *string {
+
+	return nil
+}

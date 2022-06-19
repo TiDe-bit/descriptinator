@@ -1,12 +1,13 @@
 package file_supply
 
 import (
+	"descriptinator/pkg/marshaller"
 	log "github.com/sirupsen/logrus"
 	"os"
 	"strings"
 )
 
-func GetDescription(path string, marshaller Marshaller) (FileData, error) {
+func GetDescription(path string, marshaller marshaller.Marshaller) (FileData, error) {
 	cachedData, ok := LoadFile(path)
 	if !ok {
 		data, err := marshaller.CreatDescription()
@@ -19,7 +20,7 @@ func GetDescription(path string, marshaller Marshaller) (FileData, error) {
 	return cachedData, nil
 }
 
-func gotoTmpl() (string, error) {
+func GotoTmpl() (string, error) {
 	workdir, err := os.Getwd()
 	if err != nil {
 		return "", err
@@ -45,7 +46,7 @@ func gotoTmpl() (string, error) {
 
 const templateFolderName = "template"
 
-func getTmplFile(rootPath string) (string, error) {
+func GetTmplFile(rootPath string) (string, error) {
 	files, err := os.ReadDir(templateFolderName)
 	if err != nil {
 		return "", err
