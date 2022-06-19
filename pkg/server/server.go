@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+	"strings"
 )
 
 var _ IServer = &ServeSenator{}
@@ -47,9 +48,13 @@ func (s *ServeSenator) HandleShipmentPath(gtx *gin.Context, engine *gin.Engine) 
 	queryParams := extractQueryParams(gtx.Params)
 	log.Debugf("params %+v", queryParams)
 
-	engine.Group(VERSAND_BRIEF, s.Handler(VERSAND_BRIEF))
-	engine.Group(string(VERSAND_PAKET), s.Handler(VERSAND_PAKET))
-	engine.Group(VERSAND_BRIEFTAUBE, s.Handler(VERSAND_BRIEFTAUBE))
+	fullPath := gtx.FullPath()
+	fullPathSegments := strings.Split(fullPath, "/")
+	artikelNr := fullPathSegments[len(fullPathSegments)-1]
+
+	engine.Group(VERSAND_BRIEF, s.Handler(artikelNr, VERSAND_BRIEF))
+	engine.Group(string(VERSAND_PAKET), s.Handler(artikelNr, VERSAND_PAKET))
+	engine.Group(VERSAND_BRIEFTAUBE, s.Handler(artikelNr, VERSAND_BRIEFTAUBE))
 
 }
 
@@ -78,17 +83,33 @@ func (s *ServeSenator) marshalParams(params gin.Params) {
 
 func (s *ServeSenator) Handler(artikelNr string, method Versand) gin.HandlerFunc {
 	var data file_supply.FileData
-	switch method {
-	case VERSAND_BRIEF:
+	var ok = false
 
+	data, ok = file_supply.LoadFile(file_supply.FilePathFromArtikelNr(artikelNr))
+
+	if !ok {
+		entry := marshaller.DefaultEntry(artikelNr)
+		entry.WithTitle()
+
+		s.marshaller.SetEntry(&entry)
+
+		newFile, err := s.marshaller.CreatDescription()
+		if err != nil {
+			return sendFailure(err)
+		}
+		data = newFile
 	}
 
-	entry := marshaller.DefaultEntry(artikelNr)
-	entry.WithTitle()
-
-	s.marshaller.CreatDescription()
-
 	return sendDescription(data)
+}
+
+func sendFailure(err error) gin.HandlerFunc {
+	return func(g *gin.Context) {
+		g.JSON(
+			http.StatusInternalServerError,
+			err.Error(),
+		)
+	}
 }
 
 func sendDescription(data file_supply.FileData) func(g *gin.Context) {

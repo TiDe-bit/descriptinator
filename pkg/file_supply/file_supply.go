@@ -1,23 +1,26 @@
 package file_supply
 
 import (
-	"descriptinator/pkg/marshaller"
 	log "github.com/sirupsen/logrus"
 	"os"
 	"strings"
 )
 
-func GetDescription(path string, marshaller marshaller.Marshaller) (FileData, error) {
-	cachedData, ok := LoadFile(path)
-	if !ok {
-		data, err := marshaller.CreatDescription()
-		if err != nil {
-			return nil, err
-		}
-		cachedData = data
+func FilePathFromArtikelNr(artikelNr string) string {
+	wd, err := os.Getwd()
+	if err != nil {
+		return ""
 	}
 
-	return cachedData, nil
+	rootDirFolders := strings.Split(wd, string(os.PathSeparator))
+
+	rootDirFolders = rootDirFolders[:len(rootDirFolders)-2]
+
+	rootDirPath := strings.Join(rootDirFolders, string(os.PathSeparator))
+
+	fileName := strings.Join([]string{artikelNr, "html"}, ".")
+	filePath := strings.Join([]string{rootDirPath, "html", fileName}, "/")
+	return filePath
 }
 
 func GotoTmpl() (string, error) {
