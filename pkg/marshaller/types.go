@@ -1,9 +1,5 @@
 package marshaller
 
-import (
-	"github.com/gin-gonic/gin"
-)
-
 type Versand string
 
 const (
@@ -25,9 +21,4 @@ func (p Parameter) String() string {
 
 func (p Parameter) EnumIndex() int {
 	return int(p)
-}
-
-type IServer interface {
-	HandleShipmentPath(gtx *gin.Context, engine *gin.Engine)
-	marshalParams(params gin.Params)
 }

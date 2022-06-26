@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"descriptinator/pkg/file_supply"
 	"descriptinator/pkg/marshaller"
 	"github.com/gin-gonic/gin"
@@ -9,17 +10,22 @@ import (
 	"strings"
 )
 
-var _ marshaller.IServer = &ServeSenator{}
+var _ IServer = &ServeSenator{}
 
 type ServeSenator struct {
 	address    string
 	marshaller *marshaller.Marshaller
+	loader     file_supply.ITextLoader
 }
 
 func NewServinator(address string) *ServeSenator {
+	ctx := context.Background()
+	loader := file_supply.NewMongoTextLoader(ctx)
+
 	return &ServeSenator{
 		address:    address,
 		marshaller: new(marshaller.Marshaller),
+		loader:     loader,
 	}
 }
 
@@ -89,6 +95,7 @@ func (s *ServeSenator) Handler(artikelNr string, method marshaller.Versand) gin.
 
 	if !ok {
 		entry := marshaller.DefaultEntry(artikelNr)
+		s.loader.LoadBriefText()
 		entry.WithTitle()
 
 		s.marshaller.SetEntry(&entry)

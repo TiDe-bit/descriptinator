@@ -2,6 +2,7 @@ package file_supply
 
 import (
 	"context"
+	"descriptinator/pkg/marshaller"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -50,30 +51,64 @@ func NewMongoTextLoader(ctx context.Context) ITextLoader {
 	articlesCollection := db.Collection("articles")
 
 	return &MongoTextLoader{
-		client,
 		defaultsCollection,
 		articlesCollection,
+		"",
 	}
 }
 
 type MongoTextLoader struct {
-	*mongo.Client
 	defaultsCollection *mongo.Collection
 	articleCollection  *mongo.Collection
+	currentArtikelNum  string
+}
+
+func (l *MongoTextLoader) Initialte(artikelNum string) {
+	l.currentArtikelNum = artikelNum
+}
+
+func (l *MongoTextLoader) LoadTitleText(ctx context.Context) *string {
+	var target *marshaller.Entry
+	filter := bson.M{"artikelNum": l.currentArtikelNum}
+
+	err := l.articleCollection.FindOne(ctx, filter).Decode(target)
+	if err != nil {
+		return nil
+	}
+
+	return target.Title
 }
 
 func (l *MongoTextLoader) LoadLegalText(ctx context.Context, custom ...string) *string {
 	if len(custom) > 0 {
 		return nil
 	}
-	return nil
+
+	var target marshaller.Legal
+	filter := bson.M{"": ""}
+
+	err := l.defaultsCollection.FindOne(ctx, filter).Decode(target)
+	if err != nil {
+		return nil
+	}
+
+	return target
 }
 
 func (l *MongoTextLoader) LoadAuctionText(ctx context.Context, custom ...string) *string {
 	if len(custom) > 0 {
 		return nil
 	}
-	return nil
+
+	var target marshaller.Auction
+	filter := bson.M{"": ""}
+
+	err := l.defaultsCollection.FindOne(ctx, filter).Decode(target)
+	if err != nil {
+		return nil
+	}
+
+	return target
 }
 
 type Ttext struct {

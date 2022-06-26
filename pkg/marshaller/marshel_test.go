@@ -23,9 +23,9 @@ func (s *MarshallerTestSuite) SetupSuite() {
 var mockDemoArtNum = "njdsjnds"
 
 var MockEntry = Entry{
-	KundenNr: &mockDemoArtNum,
-	Title:    &mockTitle,
-	Subtitle: &mockSubtitle,
+	ArtikelNum: &mockDemoArtNum,
+	Title:      &mockTitle,
+	Subtitle:   &mockSubtitle,
 	Article: Article{
 		GeneralInfo: &mockArticleGeneralInfo,
 		Description: &mockArticleDescription,

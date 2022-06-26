@@ -10,23 +10,23 @@ import (
 )
 
 type Entry struct {
-	KundenNr *string
-	Title    *string ``
-	Subtitle *string
-	Article  Article
-	shipping Shipping
-	legal    Legal
-	auction  Auction
-	seller   Seller
-	dsgvo    Dsgvo
+	ArtikelNum string   `bson:"artikelNum"`
+	Title      *string  `bson:"title"`
+	Subtitle   *string  `bson:"subtitle"`
+	Article    Article  `bson:"article"`
+	shipping   Shipping `bson:"shipping"`
+	legal      Legal    `bson:"legal"`
+	auction    Auction  `bson:"auction"`
+	seller     Seller   `bson:"seller"`
+	dsgvo      Dsgvo    `bson:"dsgvo"`
 }
 
 type Article struct {
-	GeneralInfo *string
-	Description *string
-	Fitting     *string
-	Condition   *string
-	shipping    Shipping
+	GeneralInfo *string  `bson:"generalInfo"`
+	Description *string  `bson:"description"`
+	Fitting     *string  `bson:"fitting"`
+	Condition   *string  `bson:"condition"`
+	shipping    Shipping `bson:"shipping"`
 }
 
 type Shipping *string
@@ -64,9 +64,9 @@ type Marshaller struct {
 
 func DefaultEntry(id string) Entry {
 	return Entry{
-		KundenNr: &id,
-		Title:    nil,
-		Subtitle: nil,
+		ArtikelNum: &id,
+		Title:      nil,
+		Subtitle:   nil,
 		Article: Article{
 			GeneralInfo: nil,
 			Description: nil,
@@ -120,7 +120,7 @@ func (m *Marshaller) getFileName() string {
 
 func getFileDestination(entry *Entry) string {
 	wd, _ := os.Getwd()
-	return fmt.Sprintf("%s/html/%s.html", wd, *entry.KundenNr)
+	return fmt.Sprintf("%s/html/%s.html", wd, *entry.ArtikelNum)
 }
 
 func marshalOne(fileName string, entry *Entry) error {

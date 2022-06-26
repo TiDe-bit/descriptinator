@@ -8,6 +8,8 @@ type IFileLoader interface {
 type FileData *[]byte
 
 type ITextLoader interface {
+	Initialte(artikelNum string)
+	LoadTitleText(ctx context.Context) *string
 	LoadLegalText(ctx context.Context, custom ...string) *string
 	LoadAuctionText(ctx context.Context, custom ...string) *string
 	LoadSellerText(ctx context.Context, custom ...string) *string
