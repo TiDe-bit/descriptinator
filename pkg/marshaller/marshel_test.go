@@ -20,34 +20,36 @@ func (s *MarshallerTestSuite) SetupSuite() {
 	log.SetLevel(log.DebugLevel)
 }
 
+var mockDemoArtNum = "njdsjnds"
+
 var MockEntry = Entry{
-	KundenNr: "Demo",
-	Title:    mockTitle,
-	Subtitle: mockSubtitle,
+	KundenNr: &mockDemoArtNum,
+	Title:    &mockTitle,
+	Subtitle: &mockSubtitle,
 	Article: Article{
-		GeneralInfo: mockArticleGeneralInfo,
-		Description: mockArticleDescription,
-		Fitting:     mockArticleFitting,
-		Shipping:    mockArticleShipping,
-		Condition:   mockArticleCondition,
+		GeneralInfo: &mockArticleGeneralInfo,
+		Description: &mockArticleDescription,
+		Fitting:     &mockArticleFitting,
+		shipping:    &mockArticleShipping,
+		Condition:   &mockArticleCondition,
 	},
-	Shipping: mockShipping,
-	Legal:    mockLegal,
-	Auction:  mockAuction,
-	Seller:   mockSeller,
-	Dsgvo:    mockDsgvo,
+	shipping: &mockShipping,
+	legal:    &mockLegal,
+	auction:  &mockAuction,
+	seller:   &mockSeller,
+	dsgvo:    &mockDsgvo,
 }
 
 func (s *MarshallerTestSuite) TestMarshalHTMLPage() {
-	rootPath, err := file_supply.gotoTmpl()
+	rootPath, err := file_supply.GotoTmpl()
 	require.NoError(s.T(), err)
 
-	tmplPath, err := file_supply.getTmplFile(rootPath)
+	tmplPath, err := file_supply.GetTmplFile(rootPath)
 	require.NoError(s.T(), err)
 	require.NotEmpty(s.T(), tmplPath)
-	err = marshalOne(tmplPath, MockEntry)
+	err = marshalOne(tmplPath, &MockEntry)
 
-	fileData, ok := file_supply.LoadFile(getFileDestination(MockEntry))
+	fileData, ok := file_supply.LoadFile(getFileDestination(&MockEntry))
 	require.True(s.T(), ok)
 	require.NotNil(s.T(), fileData)
 }

@@ -1,8 +1,8 @@
 package marshaller
 
 import (
+	"context"
 	"descriptinator/pkg/file_supply"
-	"descriptinator/pkg/server"
 	"errors"
 	"fmt"
 	"html/template"
@@ -42,16 +42,16 @@ func (e *Entry) WithTitle(title *string) {
 func (e *Entry) WithSubtitle(subtitle *string) {
 	e.Subtitle = subtitle
 }
-func (e *Entry) WithShipping(shipping server.Versand) {
+func (e *Entry) WithShipping(ctx context.Context, shipping Versand, l file_supply.ITextLoader) {
 	switch shipping {
-	case server.VERSAND_BRIEF:
-		e.shipping = file_supply.LoadBriefText()
+	case VERSAND_BRIEF:
+		e.shipping = l.LoadBriefText(ctx)
 		break
-	case server.VERSAND_PAKET:
-		e.shipping = file_supply.LoadPaketText()
+	case VERSAND_PAKET:
+		e.shipping = l.LoadPaketText(ctx)
 		break
-	case server.VERSAND_BRIEFTAUBE:
-		e.shipping = file_supply.LoadPaketBrieftaube()
+	case VERSAND_BRIEFTAUBE:
+		e.shipping = l.LoadPaketBrieftaube(ctx)
 		break
 	}
 }
@@ -120,7 +120,7 @@ func (m *Marshaller) getFileName() string {
 
 func getFileDestination(entry *Entry) string {
 	wd, _ := os.Getwd()
-	return fmt.Sprintf("%s/html/%s.html", wd, entry.KundenNr)
+	return fmt.Sprintf("%s/html/%s.html", wd, *entry.KundenNr)
 }
 
 func marshalOne(fileName string, entry *Entry) error {

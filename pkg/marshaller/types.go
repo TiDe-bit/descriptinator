@@ -1,4 +1,4 @@
-package server
+package marshaller
 
 import (
 	"github.com/gin-gonic/gin"
@@ -15,8 +15,8 @@ const (
 type Parameter int
 
 const (
-	Amount Parameter = iota + 1 // EnumIndex = 1
-	Legal                       // EnumIndex = 2
+	Param_Amount Parameter = iota + 1 // EnumIndex = 1
+	Param_Legal                       // EnumIndex = 2
 )
 
 func (p Parameter) String() string {

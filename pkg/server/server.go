@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var _ IServer = &ServeSenator{}
+var _ marshaller.IServer = &ServeSenator{}
 
 type ServeSenator struct {
 	address    string
@@ -52,14 +52,14 @@ func (s *ServeSenator) HandleShipmentPath(gtx *gin.Context, engine *gin.Engine) 
 	fullPathSegments := strings.Split(fullPath, "/")
 	artikelNr := fullPathSegments[len(fullPathSegments)-1]
 
-	engine.Group(VERSAND_BRIEF, s.Handler(artikelNr, VERSAND_BRIEF))
-	engine.Group(string(VERSAND_PAKET), s.Handler(artikelNr, VERSAND_PAKET))
-	engine.Group(VERSAND_BRIEFTAUBE, s.Handler(artikelNr, VERSAND_BRIEFTAUBE))
+	engine.Group(marshaller.VERSAND_BRIEF, s.Handler(artikelNr, marshaller.VERSAND_BRIEF))
+	engine.Group(string(marshaller.VERSAND_PAKET), s.Handler(artikelNr, marshaller.VERSAND_PAKET))
+	engine.Group(marshaller.VERSAND_BRIEFTAUBE, s.Handler(artikelNr, marshaller.VERSAND_BRIEFTAUBE))
 
 }
 
-func extractQueryParams(params gin.Params) map[Parameter]QueryParameterValue {
-	marshalingOptions := make(map[Parameter]QueryParameterValue)
+func extractQueryParams(params gin.Params) map[marshaller.Parameter]QueryParameterValue {
+	marshalingOptions := make(map[marshaller.Parameter]QueryParameterValue)
 	queryParams := params
 
 	for key := range marshalingOptions {
@@ -75,13 +75,13 @@ func extractQueryParams(params gin.Params) map[Parameter]QueryParameterValue {
 }
 
 func (s *ServeSenator) marshalParams(params gin.Params) {
-	extraParams := make(map[Parameter]string, len(params))
+	extraParams := make(map[marshaller.Parameter]string, len(params))
 	for key := range extraParams {
 		extraParams[key] = params.ByName(string(rune(key)))
 	}
 }
 
-func (s *ServeSenator) Handler(artikelNr string, method Versand) gin.HandlerFunc {
+func (s *ServeSenator) Handler(artikelNr string, method marshaller.Versand) gin.HandlerFunc {
 	var data file_supply.FileData
 	var ok = false
 
