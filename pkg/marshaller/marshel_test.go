@@ -26,7 +26,7 @@ var MockEntry = Entry{
 	ArtikelNum: &mockDemoArtNum,
 	Title:      &mockTitle,
 	Subtitle:   &mockSubtitle,
-	Article: Article{
+	Article: file_supply.Article{
 		GeneralInfo: &mockArticleGeneralInfo,
 		Description: &mockArticleDescription,
 		Fitting:     &mockArticleFitting,

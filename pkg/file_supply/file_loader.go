@@ -2,7 +2,6 @@ package file_supply
 
 import (
 	"context"
-	"descriptinator/pkg/marshaller"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

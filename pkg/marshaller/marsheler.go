@@ -10,31 +10,16 @@ import (
 )
 
 type Entry struct {
-	ArtikelNum string   `bson:"artikelNum"`
-	Title      *string  `bson:"title"`
-	Subtitle   *string  `bson:"subtitle"`
-	Article    Article  `bson:"article"`
-	shipping   Shipping `bson:"shipping"`
-	legal      Legal    `bson:"legal"`
-	auction    Auction  `bson:"auction"`
-	seller     Seller   `bson:"seller"`
-	dsgvo      Dsgvo    `bson:"dsgvo"`
+	ArtikelNum string               `bson:"artikelNum"`
+	Title      *string              `bson:"title"`
+	Subtitle   *string              `bson:"subtitle"`
+	Article    file_supply.Article  `bson:"article"`
+	shipping   file_supply.Shipping `bson:"shipping"`
+	legal      file_supply.Legal    `bson:"legal"`
+	auction    file_supply.Auction  `bson:"auction"`
+	seller     file_supply.Seller   `bson:"seller"`
+	dsgvo      file_supply.Dsgvo    `bson:"dsgvo"`
 }
-
-type Article struct {
-	GeneralInfo *string  `bson:"generalInfo"`
-	Description *string  `bson:"description"`
-	Fitting     *string  `bson:"fitting"`
-	Condition   *string  `bson:"condition"`
-	shipping    Shipping `bson:"shipping"`
-}
-
-type Shipping *string
-
-type Auction *string
-type Legal *string
-type Seller *string
-type Dsgvo *string
 
 func (e *Entry) WithTitle(title *string) {
 	e.Title = title
@@ -64,10 +49,10 @@ type Marshaller struct {
 
 func DefaultEntry(id string) Entry {
 	return Entry{
-		ArtikelNum: &id,
+		ArtikelNum: id,
 		Title:      nil,
 		Subtitle:   nil,
-		Article: Article{
+		Article: file_supply.Article{
 			GeneralInfo: nil,
 			Description: nil,
 			Fitting:     nil,
@@ -120,7 +105,7 @@ func (m *Marshaller) getFileName() string {
 
 func getFileDestination(entry *Entry) string {
 	wd, _ := os.Getwd()
-	return fmt.Sprintf("%s/html/%s.html", wd, *entry.ArtikelNum)
+	return fmt.Sprintf("%s/html/%s.html", wd, entry.ArtikelNum)
 }
 
 func marshalOne(fileName string, entry *Entry) error {
