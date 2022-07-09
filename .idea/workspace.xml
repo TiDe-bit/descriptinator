@@ -5,16 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30732834-276b-4bb4-867e-5131cdd74446" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/server/types.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/file_supply/file_loader.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/file_loader.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/file_supply/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/file_supply/types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/marshaller/marshel_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/marshaller/marshel_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/marshaller/marsheler.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/marshaller/marsheler.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/marshaller/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/marshaller/types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pkg/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/server/server.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/.eslintrc.cjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/.vscode/extensions.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/assets/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/assets/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/TheWelcome.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/WelcomeItem.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconCommunity.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconDocumentation.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconEcosystem.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconSupport.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconTooling.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/main.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/tsconfig.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/tsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controll-stage/vite.config.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,7 +106,8 @@
     "last_opened_file_path": "/home/tidy/GolandProjects/descriptinator/pkg/server",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.goide.configuration.GoProjectSettingsConfigurable"
+    "settings.editor.selected.configurable": "com.goide.configuration.GoProjectSettingsConfigurable",
+    "ts.external.directory.path": "/Users/tdellmann/Library/Application Support/JetBrains/Toolbox/apps/Goland/ch-0/221.5921.26/GoLand.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -106,14 +121,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Go Test.MarshallerTestSuite in descriptinator/pkg/marshaller">
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="descriptinator" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
     <configuration name="MarshallerTestSuite in descriptinator/pkg/marshaller" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="descriptinator" />
       <working_directory value="$PROJECT_DIR$/pkg/marshaller" />
@@ -164,15 +171,6 @@
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
       <pattern value="^\QTestMarshallerTestSuite\E$/^\QTestMarshalHTMLPage\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="descriptinator" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="DIRECTORY" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <method v="2" />
     </configuration>
     <recent_temporary>
