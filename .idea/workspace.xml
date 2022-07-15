@@ -6,29 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="30732834-276b-4bb4-867e-5131cdd74446" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/.eslintrc.cjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/.vscode/extensions.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/App.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/assets/base.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/assets/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/HelloWorld.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/TheWelcome.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/WelcomeItem.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconCommunity.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconDocumentation.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconEcosystem.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconSupport.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/components/icons/IconTooling.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/src/main.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/tsconfig.config.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/controll-stage/vite.config.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,36 +63,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultGoTemplateProperty": "Go File",
-    "DefaultHtmlFileTemplate": "HTML File",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "code.cleanup.on.save": "true",
-    "configurable..is.expanded": "false",
-    "configurable.GoLibrariesConfigurable.is.expanded": "true",
-    "go.import.settings.migrated": "true",
-    "last_opened_file_path": "/home/tidy/GolandProjects/descriptinator/pkg/server",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.goide.configuration.GoProjectSettingsConfigurable",
-    "ts.external.directory.path": "/Users/tdellmann/Library/Application Support/JetBrains/Toolbox/apps/Goland/ch-0/221.5921.26/GoLand.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;configurable..is.expanded&quot;: &quot;false&quot;,
+    &quot;configurable.GoLibrariesConfigurable.is.expanded&quot;: &quot;true&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/tidy/GolandProjects/descriptinator/pkg/server&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.goide.configuration.GoProjectSettingsConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/tdellmann/Library/Application Support/JetBrains/Toolbox/apps/Goland/ch-0/221.5921.26/GoLand.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="GoMoveDeclarationDialog.RECENT_KEY">
       <recent name="$PROJECT_DIR$/pkg/server" />
       <recent name="$PROJECT_DIR$/pkg/file_supply" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/pkg/marshaller" />
       <recent name="$PROJECT_DIR$/template" />
     </key>
