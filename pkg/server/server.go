@@ -95,8 +95,9 @@ func (s *ServeSenator) Handler(artikelNr string, method marshaller.Versand) gin.
 
 	if !ok {
 		entry := marshaller.DefaultEntry(artikelNr)
-		s.loader.LoadBriefText()
-		entry.WithTitle()
+		// ToDo: lol
+		// s.loader.LoadBriefText()
+		// entry.WithTitle()
 
 		s.marshaller.SetEntry(&entry)
 
