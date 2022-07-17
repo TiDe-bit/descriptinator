@@ -4,6 +4,7 @@ import (
 	"context"
 	"descriptinator/pkg/file_supply"
 	"descriptinator/pkg/marshaller"
+	"descriptinator/pkg/server/api"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -35,7 +36,7 @@ func (s *ServeSenator) Serve() {
 	engine.Group(
 		"ebay",
 		func(c *gin.Context) {
-			s.HandleShipmentPath(c, engine)
+			s.HandleRoutes(c, engine)
 		},
 	)
 
@@ -50,7 +51,7 @@ type QueryParameterValue struct {
 	Value string
 }
 
-func (s *ServeSenator) HandleShipmentPath(gtx *gin.Context, engine *gin.Engine) {
+func (s *ServeSenator) HandleRoutes(gtx *gin.Context, engine *gin.Engine) {
 	queryParams := extractQueryParams(gtx.Params)
 	log.Debugf("params %+v", queryParams)
 
@@ -58,10 +59,11 @@ func (s *ServeSenator) HandleShipmentPath(gtx *gin.Context, engine *gin.Engine) 
 	fullPathSegments := strings.Split(fullPath, "/")
 	artikelNr := fullPathSegments[len(fullPathSegments)-1]
 
-	engine.Group(marshaller.VERSAND_BRIEF, s.Handler(artikelNr, marshaller.VERSAND_BRIEF))
+	engine.Group(marshaller.VERSAND_BRIEF.String(), s.Handler(artikelNr, marshaller.VERSAND_BRIEF))
 	engine.Group(string(marshaller.VERSAND_PAKET), s.Handler(artikelNr, marshaller.VERSAND_PAKET))
-	engine.Group(marshaller.VERSAND_BRIEFTAUBE, s.Handler(artikelNr, marshaller.VERSAND_BRIEFTAUBE))
+	engine.Group(marshaller.VERSAND_BRIEFTAUBE.String(), s.Handler(artikelNr, marshaller.VERSAND_BRIEFTAUBE))
 
+	api.Run(engine)
 }
 
 func extractQueryParams(params gin.Params) map[marshaller.Parameter]QueryParameterValue {

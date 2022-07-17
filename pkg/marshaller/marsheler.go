@@ -3,22 +3,35 @@ package marshaller
 import (
 	"context"
 	"descriptinator/pkg/file_supply"
+	"encoding/json"
 	"errors"
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"html/template"
 	"os"
 )
 
+var _ file_supply.Valid = &Entry{}
+
 type Entry struct {
-	ArtikelNum string               `bson:"artikelNum"`
-	Title      *string              `bson:"title"`
-	Subtitle   *string              `bson:"subtitle"`
-	Article    file_supply.Article  `bson:"article"`
-	shipping   file_supply.Shipping `bson:"shipping"`
-	legal      file_supply.Legal    `bson:"legal"`
-	auction    file_supply.Auction  `bson:"auction"`
-	seller     file_supply.Seller   `bson:"seller"`
-	dsgvo      file_supply.Dsgvo    `bson:"dsgvo"`
+	ArtikelNum string               `bson:"artikelNum" json:"artikelNum"`
+	Title      *string              `bson:"title" json:"title"`
+	Subtitle   *string              `bson:"subtitle" json:"subtitle"`
+	Article    file_supply.Article  `bson:"article" json:"article"`
+	Shipping   file_supply.Shipping `bson:"shipping" json:"shipping"`
+	Legal      file_supply.Legal    `bson:"legal" json:"legal"`
+	Auction    file_supply.Auction  `bson:"auction" json:"auction"`
+	Seller     file_supply.Seller   `bson:"seller" json:"seller"`
+	Dsgvo      file_supply.Dsgvo    `bson:"dsgvo" json:"dsgvo"`
+}
+
+func (e *Entry) Byte() []byte {
+	bytes, err := json.Marshal(e)
+	if err != nil {
+		log.Error(err)
+		return nil
+	}
+	return bytes
 }
 
 func (e *Entry) WithTitle(title *string) {
@@ -30,13 +43,13 @@ func (e *Entry) WithSubtitle(subtitle *string) {
 func (e *Entry) WithShipping(ctx context.Context, shipping Versand, l file_supply.ITextLoader) {
 	switch shipping {
 	case VERSAND_BRIEF:
-		e.shipping = l.LoadBriefText(ctx)
+		e.Shipping = l.LoadBriefText(ctx)
 		break
 	case VERSAND_PAKET:
-		e.shipping = l.LoadPaketText(ctx)
+		e.Shipping = l.LoadPaketText(ctx)
 		break
 	case VERSAND_BRIEFTAUBE:
-		e.shipping = l.LoadPaketBrieftaube(ctx)
+		e.Shipping = l.LoadPaketBrieftaube(ctx)
 		break
 	}
 }
@@ -57,13 +70,12 @@ func DefaultEntry(id string) Entry {
 			Description: nil,
 			Fitting:     nil,
 			Condition:   nil,
-			shipping:    nil,
 		},
-		shipping: nil,
-		legal:    nil,
-		auction:  nil,
-		seller:   nil,
-		dsgvo:    nil,
+		Shipping: nil,
+		Legal:    nil,
+		Auction:  nil,
+		Seller:   nil,
+		Dsgvo:    nil,
 	}
 }
 

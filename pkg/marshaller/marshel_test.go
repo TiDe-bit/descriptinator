@@ -23,21 +23,20 @@ func (s *MarshallerTestSuite) SetupSuite() {
 var mockDemoArtNum = "njdsjnds"
 
 var MockEntry = Entry{
-	ArtikelNum: &mockDemoArtNum,
+	ArtikelNum: mockDemoArtNum,
 	Title:      &mockTitle,
 	Subtitle:   &mockSubtitle,
 	Article: file_supply.Article{
 		GeneralInfo: &mockArticleGeneralInfo,
 		Description: &mockArticleDescription,
 		Fitting:     &mockArticleFitting,
-		shipping:    &mockArticleShipping,
 		Condition:   &mockArticleCondition,
 	},
-	shipping: &mockShipping,
-	legal:    &mockLegal,
-	auction:  &mockAuction,
-	seller:   &mockSeller,
-	dsgvo:    &mockDsgvo,
+	Shipping: &mockShipping,
+	Legal:    &mockLegal,
+	Auction:  &mockAuction,
+	Seller:   &mockSeller,
+	Dsgvo:    &mockDsgvo,
 }
 
 func (s *MarshallerTestSuite) TestMarshalHTMLPage() {

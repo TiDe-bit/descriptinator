@@ -2,6 +2,8 @@ package file_supply
 
 import (
 	"context"
+	"descriptinator/pkg/marshaller"
+	"encoding/json"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -33,27 +35,34 @@ func NewMongoTextLoader(ctx context.Context) ITextLoader {
 		return nil
 	}
 
-	db := client.Database("texts")
-
-	err = db.CreateCollection(ctx, "defaults", options.CreateCollection())
+	defaultsCollection, articlesCollection, err := setupDB(ctx, client)
 	if err != nil {
 		logrus.Fatal(err)
-		return nil
 	}
-	defaultsCollection := db.Collection("defaults")
-
-	err = db.CreateCollection(ctx, "articles", options.CreateCollection())
-	if err != nil {
-		logrus.Fatal(err)
-		return nil
-	}
-	articlesCollection := db.Collection("articles")
 
 	return &MongoTextLoader{
 		defaultsCollection,
 		articlesCollection,
 		"",
 	}
+}
+
+func setupDB(ctx context.Context, client *mongo.Client) (defaultsCollection *mongo.Collection, articlesCollection *mongo.Collection, err error) {
+	db := client.Database("texts")
+
+	err = db.CreateCollection(ctx, "defaults", options.CreateCollection())
+	if err != nil {
+		return nil, nil, err
+	}
+	defaultsCollection = db.Collection("defaults")
+
+	err = db.CreateCollection(ctx, "articles", options.CreateCollection())
+	if err != nil {
+		return nil, nil, err
+	}
+	articlesCollection = db.Collection("articles")
+
+	return defaultsCollection, articlesCollection, nil
 }
 
 type MongoTextLoader struct {
@@ -83,7 +92,7 @@ func (l *MongoTextLoader) LoadLegalText(ctx context.Context, custom ...string) *
 		return nil
 	}
 
-	var target marshaller.Legal
+	var target Legal
 	filter := bson.M{"": ""}
 
 	err := l.defaultsCollection.FindOne(ctx, filter).Decode(target)
@@ -99,7 +108,7 @@ func (l *MongoTextLoader) LoadAuctionText(ctx context.Context, custom ...string)
 		return nil
 	}
 
-	var target marshaller.Auction
+	var target Auction
 	filter := bson.M{"": ""}
 
 	err := l.defaultsCollection.FindOne(ctx, filter).Decode(target)
@@ -110,8 +119,25 @@ func (l *MongoTextLoader) LoadAuctionText(ctx context.Context, custom ...string)
 	return target
 }
 
+type Valid interface {
+	Byte() []byte
+}
+
+var _ Valid = Ttext{}
+
 type Ttext struct {
 	text string `bson:"Ttext"`
+}
+
+func (t Ttext) Byte() []byte {
+
+	bytes, err := json.Marshal(t)
+	if err != nil {
+		logrus.Error(err)
+		return nil
+	}
+
+	return bytes
 }
 
 func (l *MongoTextLoader) LoadSellerText(ctx context.Context, custom ...string) *string {
@@ -143,5 +169,52 @@ func (l *MongoTextLoader) LoadPaketText(ctx context.Context) *string {
 }
 
 func (l *MongoTextLoader) LoadPaketBrieftaube(ctx context.Context) *string {
+	return nil
+}
+
+func LoadAny[T Ttext | any](ctx context.Context, filter bson.M, specific ...struct{}) (*T, error) {
+	var result T
+
+	client, err := ConnectToMongodb(ctx)
+	defaultsCollection, articleCollection, err := setupDB(ctx, client)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(specific) == 0 {
+		if err := defaultsCollection.FindOne(ctx, filter).Decode(&result); err != nil {
+			return nil, err
+		}
+	} else {
+		if err := articleCollection.FindOne(ctx, filter).Decode(&result); err != nil {
+			return nil, err
+		}
+	}
+
+	return &result, nil
+}
+
+func SaveAny[T any](ctx context.Context, filter bson.M, data *T, specific ...struct{}) error {
+	// ToDo: only one connection...
+	client, err := ConnectToMongodb(ctx)
+	defaultsCollection, articleCollection, err := setupDB(ctx, client)
+	opts := options.Update().SetUpsert(true)
+
+	if err != nil {
+		return err
+	}
+
+	if len(specific) == 0 {
+		_, err := defaultsCollection.UpdateOne(ctx, filter, data, opts)
+		if err != nil {
+			return err
+		}
+	} else {
+		_, err := articleCollection.UpdateOne(ctx, filter, data, opts)
+		if err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
