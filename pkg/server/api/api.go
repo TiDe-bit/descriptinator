@@ -4,6 +4,8 @@ import (
 	"descriptinator/pkg/file_supply"
 	"descriptinator/pkg/marshaller"
 	"encoding/json"
+	"errors"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"net/http"
@@ -11,14 +13,34 @@ import (
 
 func Run(engine *gin.Engine) {
 	// ToDo api path
-	engine.GET(marshaller.VERSAND_BRIEF.String(), loadVersand(marshaller.VERSAND_BRIEF.String()))
-	engine.GET(marshaller.VERSAND_PAKET.String(), loadVersand(marshaller.VERSAND_PAKET.String()))
-	engine.GET(marshaller.VERSAND_BRIEFTAUBE.String(), loadVersand(marshaller.VERSAND_BRIEFTAUBE.String()))
+	engine.GET(getApiPath(marshaller.VERSAND_BRIEF.String()), loadVersand(marshaller.VERSAND_BRIEF.String()))
+	engine.GET(getApiPath(marshaller.VERSAND_PAKET.String()), loadVersand(marshaller.VERSAND_PAKET.String()))
+	engine.GET(getApiPath(marshaller.VERSAND_BRIEFTAUBE.String()), loadVersand(marshaller.VERSAND_BRIEFTAUBE.String()))
+	engine.GET(getApiPath("entry"), func(gtx *gin.Context) {
+		artikelNum, exists := gtx.Params.Get("artikelNum")
+		if !exists {
+			gtx.Error(errors.New("no artikelNum in path"))
+			return
+		}
+		loadEntryFromDB(artikelNum)
+	})
 
 	// ToDo do other imports
-	engine.PUT(marshaller.VERSAND_BRIEF.String(), saveVersand(marshaller.VERSAND_BRIEF.String()))
-	engine.PUT(marshaller.VERSAND_PAKET.String(), saveVersand(marshaller.VERSAND_PAKET.String()))
-	engine.PUT(marshaller.VERSAND_BRIEFTAUBE.String(), saveVersand(marshaller.VERSAND_BRIEFTAUBE.String()))
+	engine.PUT(getApiPath(marshaller.VERSAND_BRIEF.String()), saveVersand(marshaller.VERSAND_BRIEF.String()))
+	engine.PUT(getApiPath(marshaller.VERSAND_PAKET.String()), saveVersand(marshaller.VERSAND_PAKET.String()))
+	engine.PUT(getApiPath(marshaller.VERSAND_BRIEFTAUBE.String()), saveVersand(marshaller.VERSAND_BRIEFTAUBE.String()))
+	engine.PUT(getApiPath("entry"), func(gtx *gin.Context) {
+		artikelNum, exists := gtx.Params.Get("artikelNum")
+		if !exists {
+			gtx.Error(errors.New("no artikelNum in path"))
+			return
+		}
+		saveEntry(artikelNum)
+	})
+}
+
+func getApiPath(endPoint string) string {
+	return fmt.Sprintf("api/%s", endPoint)
 }
 
 func loadVersand(versandArt string) gin.HandlerFunc {
@@ -29,7 +51,7 @@ func saveVersand(versandArt string) gin.HandlerFunc {
 	return save[file_supply.Ttext]("versand", versandArt, false)
 }
 
-func loadEntry(entryID string) gin.HandlerFunc {
+func loadEntryFromDB(entryID string) gin.HandlerFunc {
 	return load[*marshaller.Entry]("entry", entryID, true)
 }
 
