@@ -40,13 +40,14 @@ func (s *ServeSenator) Serve() {
 		},
 	)
 
-	err := engine.Run(s.address)
-	if err != nil {
-		log.Fatal(err)
+	defer log.Info("Shutting down...")
+
+	if err := engine.Run(s.address); err != nil {
+		log.WithError(err).Fatal("Shutting down...")
 	}
 }
 
-type QueryParameterValue struct {
+type queryParameterValue struct {
 	Used  bool
 	Value string
 }
@@ -66,14 +67,14 @@ func (s *ServeSenator) HandleRoutes(gtx *gin.Context, engine *gin.Engine) {
 	api.Run(engine)
 }
 
-func extractQueryParams(params gin.Params) map[marshaller.Parameter]QueryParameterValue {
-	marshalingOptions := make(map[marshaller.Parameter]QueryParameterValue)
+func extractQueryParams(params gin.Params) map[marshaller.Parameter]queryParameterValue {
+	marshalingOptions := make(map[marshaller.Parameter]queryParameterValue)
 	queryParams := params
 
 	for key := range marshalingOptions {
 		value, ok := queryParams.Get(key.String())
 		if ok {
-			marshalingOptions[key] = QueryParameterValue{
+			marshalingOptions[key] = queryParameterValue{
 				Used:  ok,
 				Value: value,
 			}
