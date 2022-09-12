@@ -1,67 +1,21 @@
 package marshaller
 
 import (
-	"context"
 	"descriptinator/pkg/file_supply"
-	"encoding/json"
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"html/template"
 	"os"
 )
 
-var _ file_supply.Valid = &Entry{}
-
-type Entry struct {
-	ArtikelNum string               `bson:"artikelNum" json:"artikelNum"`
-	Title      *string              `bson:"title" json:"title"`
-	Subtitle   *string              `bson:"subtitle" json:"subtitle"`
-	Article    file_supply.Article  `bson:"article" json:"article"`
-	Shipping   file_supply.Shipping `bson:"shipping" json:"shipping"`
-	Legal      file_supply.Legal    `bson:"legal" json:"legal"`
-	Auction    file_supply.Auction  `bson:"auction" json:"auction"`
-	Seller     file_supply.Seller   `bson:"seller" json:"seller"`
-	Dsgvo      file_supply.Dsgvo    `bson:"dsgvo" json:"dsgvo"`
-}
-
-func (e *Entry) Byte() []byte {
-	bytes, err := json.Marshal(e)
-	if err != nil {
-		log.Error(err)
-		return nil
-	}
-	return bytes
-}
-
-func (e *Entry) WithTitle(title *string) {
-	e.Title = title
-}
-func (e *Entry) WithSubtitle(subtitle *string) {
-	e.Subtitle = subtitle
-}
-func (e *Entry) WithShipping(ctx context.Context, shipping Versand, l file_supply.ITextLoader) {
-	switch shipping {
-	case VERSAND_BRIEF:
-		e.Shipping = l.LoadBriefText(ctx)
-		break
-	case VERSAND_PAKET:
-		e.Shipping = l.LoadPaketText(ctx)
-		break
-	case VERSAND_BRIEFTAUBE:
-		e.Shipping = l.LoadPaketBrieftaube(ctx)
-		break
-	}
-}
-
 type Marshaller struct {
 	url      string
-	entry    *Entry
+	entry    *file_supply.Entry
 	tmplPath string
 }
 
-func DefaultEntry(id string) Entry {
-	return Entry{
+func DefaultEntry(id string) file_supply.Entry {
+	return file_supply.Entry{
 		ArtikelNum: id,
 		Title:      nil,
 		Subtitle:   nil,
@@ -107,7 +61,7 @@ func (m *Marshaller) CreatDescription() (file_supply.FileData, error) {
 	return fileData, nil
 }
 
-func (m *Marshaller) SetEntry(entry *Entry) {
+func (m *Marshaller) SetEntry(entry *file_supply.Entry) {
 	m.entry = entry
 }
 
@@ -115,12 +69,12 @@ func (m *Marshaller) getFileName() string {
 	return getFileDestination(m.entry)
 }
 
-func getFileDestination(entry *Entry) string {
+func getFileDestination(entry *file_supply.Entry) string {
 	wd, _ := os.Getwd()
 	return fmt.Sprintf("%s/html/%s.html", wd, entry.ArtikelNum)
 }
 
-func marshalOne(fileName string, entry *Entry) error {
+func marshalOne(fileName string, entry *file_supply.Entry) error {
 	file, err := os.ReadFile(fileName)
 	if err != nil {
 		return err

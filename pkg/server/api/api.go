@@ -2,20 +2,20 @@ package api
 
 import (
 	"descriptinator/pkg/file_supply"
-	"descriptinator/pkg/marshaller"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
-	"net/http"
 )
 
 func Run(engine *gin.Engine) {
 	// ToDo api path
-	engine.GET(getApiPath(marshaller.VERSAND_BRIEF.String()), loadVersand(marshaller.VERSAND_BRIEF.String()))
-	engine.GET(getApiPath(marshaller.VERSAND_PAKET.String()), loadVersand(marshaller.VERSAND_PAKET.String()))
-	engine.GET(getApiPath(marshaller.VERSAND_BRIEFTAUBE.String()), loadVersand(marshaller.VERSAND_BRIEFTAUBE.String()))
+	engine.GET(getApiPath(file_supply.VERSAND_BRIEF.String()), loadVersand(file_supply.VERSAND_BRIEF.String()))
+	engine.GET(getApiPath(file_supply.VERSAND_PAKET.String()), loadVersand(file_supply.VERSAND_PAKET.String()))
+	engine.GET(getApiPath(file_supply.VERSAND_BRIEFTAUBE.String()), loadVersand(file_supply.VERSAND_BRIEFTAUBE.String()))
 	engine.GET(getApiPath("entry"), func(gtx *gin.Context) {
 		artikelNum, exists := gtx.Params.Get("artikelNum")
 		if !exists {
@@ -26,9 +26,9 @@ func Run(engine *gin.Engine) {
 	})
 
 	// ToDo do other imports
-	engine.PUT(getApiPath(marshaller.VERSAND_BRIEF.String()), saveVersand(marshaller.VERSAND_BRIEF.String()))
-	engine.PUT(getApiPath(marshaller.VERSAND_PAKET.String()), saveVersand(marshaller.VERSAND_PAKET.String()))
-	engine.PUT(getApiPath(marshaller.VERSAND_BRIEFTAUBE.String()), saveVersand(marshaller.VERSAND_BRIEFTAUBE.String()))
+	engine.PUT(getApiPath(file_supply.VERSAND_BRIEF.String()), saveVersand(file_supply.VERSAND_BRIEF.String()))
+	engine.PUT(getApiPath(file_supply.VERSAND_PAKET.String()), saveVersand(file_supply.VERSAND_PAKET.String()))
+	engine.PUT(getApiPath(file_supply.VERSAND_BRIEFTAUBE.String()), saveVersand(file_supply.VERSAND_BRIEFTAUBE.String()))
 	engine.PUT(getApiPath("entry"), func(gtx *gin.Context) {
 		artikelNum, exists := gtx.Params.Get("artikelNum")
 		if !exists {
@@ -52,11 +52,11 @@ func saveVersand(versandArt string) gin.HandlerFunc {
 }
 
 func loadEntryFromDB(entryID string) gin.HandlerFunc {
-	return load[*marshaller.Entry]("entry", entryID, true)
+	return load[*file_supply.Entry]("entry", entryID, true)
 }
 
 func saveEntry(entryID string) gin.HandlerFunc {
-	return save[*marshaller.Entry]("entry", entryID, true)
+	return save[*file_supply.Entry]("entry", entryID, true)
 }
 
 func load[T file_supply.Valid](field, id string, special bool) gin.HandlerFunc {

@@ -1,17 +1,5 @@
 package marshaller
 
-type Versand string
-
-const (
-	VERSAND_PAKET      Versand = "paket"
-	VERSAND_BRIEF      Versand = "brief"
-	VERSAND_BRIEFTAUBE Versand = "brieftaube"
-)
-
-func (v Versand) String() string {
-	return string(v)
-}
-
 type Parameter int
 
 const (

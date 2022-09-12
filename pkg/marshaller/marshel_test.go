@@ -22,7 +22,7 @@ func (s *MarshallerTestSuite) SetupSuite() {
 
 var mockDemoArtNum = "njdsjnds"
 
-var MockEntry = Entry{
+var MockEntry = file_supply.Entry{
 	ArtikelNum: mockDemoArtNum,
 	Title:      &mockTitle,
 	Subtitle:   &mockSubtitle,

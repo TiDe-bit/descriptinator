@@ -2,13 +2,13 @@ package file_supply
 
 import (
 	"context"
-	"descriptinator/pkg/marshaller"
 	"encoding/json"
+	"strings"
+
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"strings"
 )
 
 var _ ITextLoader = &MongoTextLoader{}
@@ -76,7 +76,7 @@ func (l *MongoTextLoader) Initialte(artikelNum string) {
 }
 
 func (l *MongoTextLoader) LoadTitleText(ctx context.Context) *string {
-	var target *marshaller.Entry
+	var target *Entry
 	filter := bson.M{"artikelNum": l.currentArtikelNum}
 
 	err := l.articleCollection.FindOne(ctx, filter).Decode(target)

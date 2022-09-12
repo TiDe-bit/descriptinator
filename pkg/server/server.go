@@ -60,9 +60,9 @@ func (s *ServeSenator) HandleRoutes(gtx *gin.Context, engine *gin.Engine) {
 	fullPathSegments := strings.Split(fullPath, "/")
 	artikelNr := fullPathSegments[len(fullPathSegments)-1]
 
-	engine.Group(marshaller.VERSAND_BRIEF.String(), s.Handler(artikelNr, marshaller.VERSAND_BRIEF))
-	engine.Group(string(marshaller.VERSAND_PAKET), s.Handler(artikelNr, marshaller.VERSAND_PAKET))
-	engine.Group(marshaller.VERSAND_BRIEFTAUBE.String(), s.Handler(artikelNr, marshaller.VERSAND_BRIEFTAUBE))
+	engine.Group(file_supply.VERSAND_BRIEF.String(), s.Handler(artikelNr, file_supply.VERSAND_BRIEF))
+	engine.Group(string(file_supply.VERSAND_PAKET), s.Handler(artikelNr, file_supply.VERSAND_PAKET))
+	engine.Group(file_supply.VERSAND_BRIEFTAUBE.String(), s.Handler(artikelNr, file_supply.VERSAND_BRIEFTAUBE))
 
 	api.Run(engine)
 }
@@ -90,7 +90,7 @@ func (s *ServeSenator) marshalParams(params gin.Params) {
 	}
 }
 
-func (s *ServeSenator) Handler(artikelNr string, method marshaller.Versand) gin.HandlerFunc {
+func (s *ServeSenator) Handler(artikelNr string, method file_supply.Versand) gin.HandlerFunc {
 	var data file_supply.FileData
 	var ok = false
 
