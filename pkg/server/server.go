@@ -5,6 +5,7 @@ import (
 	"descriptinator/pkg/file_supply"
 	"descriptinator/pkg/marshaller"
 	"descriptinator/pkg/server/api"
+	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -40,6 +41,11 @@ func (s *ServeSenator) Serve() {
 		},
 	)
 
+	basePath := "./app/dist"
+
+	engine.Use(static.ServeRoot("/", basePath))
+	engine.Use(static.ServeRoot("/edit", basePath))
+
 	defer log.Info("Shutting down...")
 
 	if err := engine.Run(s.address); err != nil {
@@ -60,9 +66,9 @@ func (s *ServeSenator) HandleRoutes(gtx *gin.Context, engine *gin.Engine) {
 	fullPathSegments := strings.Split(fullPath, "/")
 	artikelNr := fullPathSegments[len(fullPathSegments)-1]
 
-	engine.Group(file_supply.VERSAND_BRIEF.String(), s.Handler(artikelNr, file_supply.VERSAND_BRIEF))
-	engine.Group(string(file_supply.VERSAND_PAKET), s.Handler(artikelNr, file_supply.VERSAND_PAKET))
-	engine.Group(file_supply.VERSAND_BRIEFTAUBE.String(), s.Handler(artikelNr, file_supply.VERSAND_BRIEFTAUBE))
+	engine.Group(file_supply.VersandBrief.String(), s.Handler(artikelNr, file_supply.VersandBrief))
+	engine.Group(file_supply.VersandPaket.String(), s.Handler(artikelNr, file_supply.VersandPaket))
+	engine.Group(file_supply.VersandBrieftaube.String(), s.Handler(artikelNr, file_supply.VersandBrieftaube))
 
 	api.Run(engine)
 }

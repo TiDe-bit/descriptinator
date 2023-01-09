@@ -38,13 +38,13 @@ func (e *Entry) WithSubtitle(subtitle *string) {
 }
 func (e *Entry) WithShipping(ctx context.Context, shipping Versand, l ITextLoader) {
 	switch shipping {
-	case VERSAND_BRIEF:
+	case VersandBrief:
 		e.Shipping = l.LoadBriefText(ctx)
 		break
-	case VERSAND_PAKET:
+	case VersandPaket:
 		e.Shipping = l.LoadPaketText(ctx)
 		break
-	case VERSAND_BRIEFTAUBE:
+	case VersandBrieftaube:
 		e.Shipping = l.LoadPaketBrieftaube(ctx)
 		break
 	}
@@ -84,9 +84,9 @@ type Dsgvo *string
 type Versand string
 
 const (
-	VERSAND_PAKET      Versand = "paket"
-	VERSAND_BRIEF      Versand = "brief"
-	VERSAND_BRIEFTAUBE Versand = "brieftaube"
+	VersandPaket      Versand = "paket"
+	VersandBrief      Versand = "brief"
+	VersandBrieftaube Versand = "brieftaube"
 )
 
 func (v Versand) String() string {

@@ -13,9 +13,9 @@ import (
 
 func Run(engine *gin.Engine) {
 	// ToDo api path
-	engine.GET(getApiPath(file_supply.VERSAND_BRIEF.String()), loadVersand(file_supply.VERSAND_BRIEF.String()))
-	engine.GET(getApiPath(file_supply.VERSAND_PAKET.String()), loadVersand(file_supply.VERSAND_PAKET.String()))
-	engine.GET(getApiPath(file_supply.VERSAND_BRIEFTAUBE.String()), loadVersand(file_supply.VERSAND_BRIEFTAUBE.String()))
+	engine.GET(getApiPath(file_supply.VersandBrief.String()), loadVersand(file_supply.VersandBrief.String()))
+	engine.GET(getApiPath(file_supply.VersandPaket.String()), loadVersand(file_supply.VersandPaket.String()))
+	engine.GET(getApiPath(file_supply.VersandBrieftaube.String()), loadVersand(file_supply.VersandBrieftaube.String()))
 	engine.GET(getApiPath("entry"), func(gtx *gin.Context) {
 		artikelNum, exists := gtx.Params.Get("artikelNum")
 		if !exists {
@@ -26,9 +26,9 @@ func Run(engine *gin.Engine) {
 	})
 
 	// ToDo do other imports
-	engine.PUT(getApiPath(file_supply.VERSAND_BRIEF.String()), saveVersand(file_supply.VERSAND_BRIEF.String()))
-	engine.PUT(getApiPath(file_supply.VERSAND_PAKET.String()), saveVersand(file_supply.VERSAND_PAKET.String()))
-	engine.PUT(getApiPath(file_supply.VERSAND_BRIEFTAUBE.String()), saveVersand(file_supply.VERSAND_BRIEFTAUBE.String()))
+	engine.PUT(getApiPath(file_supply.VersandBrief.String()), saveVersand(file_supply.VersandBrief.String()))
+	engine.PUT(getApiPath(file_supply.VersandPaket.String()), saveVersand(file_supply.VersandPaket.String()))
+	engine.PUT(getApiPath(file_supply.VersandBrieftaube.String()), saveVersand(file_supply.VersandBrieftaube.String()))
 	engine.PUT(getApiPath("entry"), func(gtx *gin.Context) {
 		artikelNum, exists := gtx.Params.Get("artikelNum")
 		if !exists {

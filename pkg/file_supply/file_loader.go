@@ -15,7 +15,7 @@ var _ ITextLoader = &MongoTextLoader{}
 
 func ConnectToMongodb(ctx context.Context) (*mongo.Client, error) {
 
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongo:27017"))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb:27017"))
 	if err != nil {
 		return nil, err
 	}
@@ -31,8 +31,8 @@ func ConnectToMongodb(ctx context.Context) (*mongo.Client, error) {
 func NewMongoTextLoader(ctx context.Context) ITextLoader {
 	client, err := ConnectToMongodb(ctx)
 	if err != nil {
-		logrus.Fatal(err)
-		return nil
+		logrus.Error(err)
+		return &DemoLoader{}
 	}
 
 	defaultsCollection, articlesCollection, err := setupDB(ctx, client)
