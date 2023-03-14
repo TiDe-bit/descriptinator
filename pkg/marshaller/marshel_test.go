@@ -2,10 +2,11 @@ package marshaller
 
 import (
 	"descriptinator/pkg/file_supply"
+	"testing"
+
 	log "github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 func TestMarshallerTestSuite(t *testing.T) {
@@ -24,19 +25,19 @@ var mockDemoArtNum = "njdsjnds"
 
 var MockEntry = file_supply.Entry{
 	ArtikelNum: mockDemoArtNum,
-	Title:      &mockTitle,
-	Subtitle:   &mockSubtitle,
+	Title:      mockTitle,
+	Subtitle:   mockSubtitle,
 	Article: file_supply.Article{
-		GeneralInfo: &mockArticleGeneralInfo,
-		Description: &mockArticleDescription,
-		Fitting:     &mockArticleFitting,
-		Condition:   &mockArticleCondition,
+		GeneralInfo: mockArticleGeneralInfo,
+		Description: mockArticleDescription,
+		Fitting:     mockArticleFitting,
+		Condition:   mockArticleCondition,
 	},
-	Shipping: &mockShipping,
-	Legal:    &mockLegal,
-	Auction:  &mockAuction,
-	Seller:   &mockSeller,
-	Dsgvo:    &mockDsgvo,
+	Shipping: mockShipping,
+	Legal:    mockLegal,
+	Auction:  mockAuction,
+	Seller:   mockSeller,
+	Dsgvo:    mockDsgvo,
 }
 
 func (s *MarshallerTestSuite) TestMarshalHTMLPage() {

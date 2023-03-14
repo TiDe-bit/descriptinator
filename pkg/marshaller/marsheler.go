@@ -14,25 +14,6 @@ type Marshaller struct {
 	tmplPath string
 }
 
-func DefaultEntry(id string) file_supply.Entry {
-	return file_supply.Entry{
-		ArtikelNum: id,
-		Title:      nil,
-		Subtitle:   nil,
-		Article: file_supply.Article{
-			GeneralInfo: nil,
-			Description: nil,
-			Fitting:     nil,
-			Condition:   nil,
-		},
-		Shipping: nil,
-		Legal:    nil,
-		Auction:  nil,
-		Seller:   nil,
-		Dsgvo:    nil,
-	}
-}
-
 func NewMarshaller() *Marshaller {
 	return new(Marshaller)
 }

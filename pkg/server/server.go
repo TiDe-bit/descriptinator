@@ -5,11 +5,12 @@ import (
 	"descriptinator/pkg/file_supply"
 	"descriptinator/pkg/marshaller"
 	"descriptinator/pkg/server/api"
+	"net/http"
+	"strings"
+
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"net/http"
-	"strings"
 )
 
 var _ IServer = &ServeSenator{}
@@ -66,9 +67,9 @@ func (s *ServeSenator) HandleRoutes(gtx *gin.Context, engine *gin.Engine) {
 	fullPathSegments := strings.Split(fullPath, "/")
 	artikelNr := fullPathSegments[len(fullPathSegments)-1]
 
-	engine.Group(file_supply.VersandBrief.String(), s.Handler(artikelNr, file_supply.VersandBrief))
-	engine.Group(file_supply.VersandPaket.String(), s.Handler(artikelNr, file_supply.VersandPaket))
-	engine.Group(file_supply.VersandBrieftaube.String(), s.Handler(artikelNr, file_supply.VersandBrieftaube))
+	engine.Group(file_supply.VersandBrief.String(), s.Handler(gtx, artikelNr, file_supply.VersandBrief))
+	engine.Group(file_supply.VersandPaket.String(), s.Handler(gtx, artikelNr, file_supply.VersandPaket))
+	engine.Group(file_supply.VersandBrieftaube.String(), s.Handler(gtx, artikelNr, file_supply.VersandBrieftaube))
 
 	api.Run(engine)
 }
@@ -96,19 +97,15 @@ func (s *ServeSenator) marshalParams(params gin.Params) {
 	}
 }
 
-func (s *ServeSenator) Handler(artikelNr string, method file_supply.Versand) gin.HandlerFunc {
-	var data file_supply.FileData
-	var ok = false
+func (s *ServeSenator) Handler(ctx context.Context, artikelNr string, method file_supply.Versand) gin.HandlerFunc {
 
-	data, ok = file_supply.LoadFile(file_supply.FilePathFromArtikelNr(artikelNr))
+	data, ok := file_supply.LoadFile(file_supply.FilePathFromArtikelNr(artikelNr))
 
 	if !ok {
-		entry := marshaller.DefaultEntry(artikelNr)
-		// ToDo: lol
-		// s.loader.LoadBriefText()
-		// entry.WithTitle()
 
-		s.marshaller.SetEntry(&entry)
+		savedEntry := s.loader.LoadEntry(ctx, method)
+
+		s.marshaller.SetEntry(savedEntry)
 
 		newFile, err := s.marshaller.CreatDescription()
 		if err != nil {

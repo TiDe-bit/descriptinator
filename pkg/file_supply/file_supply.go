@@ -1,9 +1,10 @@
 package file_supply
 
 import (
-	log "github.com/sirupsen/logrus"
 	"os"
 	"strings"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func FilePathFromArtikelNr(artikelNr string) string {
@@ -67,6 +68,7 @@ func GetTmplFile(rootPath string) (string, error) {
 	return fullPath, nil
 }
 
+// ToDo: buffer in map
 func LoadFile(fileName string) (FileData, bool) {
 	file, err := os.Open(fileName)
 	if err != nil {
