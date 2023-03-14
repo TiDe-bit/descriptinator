@@ -2,17 +2,13 @@ package api
 
 import (
 	"descriptinator/pkg/file_supply"
-	"encoding/json"
 	"errors"
 	"fmt"
-	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
-func Run(engine *gin.Engine) {
-	// ToDo api path
+func Run(engine *gin.Engine, loader *file_supply.ITextLoader) {
 	engine.GET(getApiPath(file_supply.VersandBrief.String()), loadVersand(file_supply.VersandBrief.String()))
 	engine.GET(getApiPath(file_supply.VersandPaket.String()), loadVersand(file_supply.VersandPaket.String()))
 	engine.GET(getApiPath(file_supply.VersandBrieftaube.String()), loadVersand(file_supply.VersandBrieftaube.String()))
@@ -44,77 +40,17 @@ func getApiPath(endPoint string) string {
 }
 
 func loadVersand(versandArt string) gin.HandlerFunc {
-	return load[file_supply.Ttext]("versand", versandArt, false)
+	return load("versand", versandArt, false)
 }
 
 func saveVersand(versandArt string) gin.HandlerFunc {
-	return save[file_supply.Ttext]("versand", versandArt, false)
+	return save("versand", versandArt, false)
 }
 
-func loadEntryFromDB(entryID string) gin.HandlerFunc {
-	return load[*file_supply.Entry]("entry", entryID, true)
+func loadEntryFromDB(entryID string, loader file_supply.ITextLoader) gin.HandlerFunc {
+	loader.LoadEntry(ctx, entryID)
 }
 
 func saveEntry(entryID string) gin.HandlerFunc {
-	return save[*file_supply.Entry]("entry", entryID, true)
-}
-
-func load[T file_supply.Valid](field, id string, special bool) gin.HandlerFunc {
-	return func(gtx *gin.Context) {
-		var data *T
-		var err error
-		if special {
-			data, err = file_supply.LoadAny[T](
-				gtx,
-				bson.M{field: id},
-				struct{}{},
-			)
-		} else {
-			data, err = file_supply.LoadAny[T](
-				gtx,
-				bson.M{field: id},
-			)
-		}
-		if err != nil {
-			gtx.Error(err)
-		}
-		tmp := *data
-		gtx.Data(http.StatusOK, "data", tmp.Byte())
-	}
-}
-
-func save[T file_supply.Valid](field, id string, special bool) gin.HandlerFunc {
-	return func(gtx *gin.Context) {
-		var object *T
-
-		rawData, err := gtx.GetRawData()
-		if err != nil {
-			gtx.Error(err)
-		}
-
-		err = json.Unmarshal(rawData, object)
-		if err != nil {
-			gtx.Error(err)
-		}
-
-		if special {
-			err = file_supply.SaveAny[T](
-				gtx,
-				bson.M{field: id},
-				object,
-				struct{}{},
-			)
-		} else {
-			err = file_supply.SaveAny[T](
-				gtx,
-				bson.M{field: id},
-				object,
-			)
-		}
-		if err != nil {
-			gtx.Error(err)
-		}
-
-		gtx.Status(http.StatusOK)
-	}
+	return save("entry", entryID, true)
 }

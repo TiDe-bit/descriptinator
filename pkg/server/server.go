@@ -71,7 +71,7 @@ func (s *ServeSenator) HandleRoutes(gtx *gin.Context, engine *gin.Engine) {
 	engine.Group(file_supply.VersandPaket.String(), s.Handler(gtx, artikelNr, file_supply.VersandPaket))
 	engine.Group(file_supply.VersandBrieftaube.String(), s.Handler(gtx, artikelNr, file_supply.VersandBrieftaube))
 
-	api.Run(engine)
+	api.Run(engine, &s.loader)
 }
 
 func extractQueryParams(params gin.Params) map[marshaller.Parameter]queryParameterValue {
@@ -103,7 +103,7 @@ func (s *ServeSenator) Handler(ctx context.Context, artikelNr string, method fil
 
 	if !ok {
 
-		savedEntry := s.loader.LoadEntry(ctx, method)
+		savedEntry := s.loader.LoadEntry(ctx, method.String())
 
 		s.marshaller.SetEntry(savedEntry)
 

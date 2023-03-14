@@ -40,6 +40,7 @@ type IFileLoader interface {
 
 type FileData *[]byte
 
+// ToDo: save versandart expecially
 type ITextLoader interface {
 	// InitiateAction sets the article number; if not set the default gets loaded
 	InitiateAction(artikelNum string) ITextLoader
@@ -47,8 +48,10 @@ type ITextLoader interface {
 	LoadLegalText(ctx context.Context) *string
 	LoadAuctionText(ctx context.Context) *string
 	LoadSellerText(ctx context.Context) *string
-	LoadShippingText(ctx context.Context, shippingMethod string) *string
+
 	LoadEntry(ctx context.Context, shippingMathod string) *Entry
+	SaveDefaultVersandText(ctx context.Context, method Versand, data string) error
+	LoadShippingText(ctx context.Context, shippingMethod string) *string
 }
 
 type Article struct {

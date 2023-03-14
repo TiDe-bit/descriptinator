@@ -53,13 +53,14 @@ func NewMongoTextLoader(ctx context.Context) ITextLoader {
 		logrus.Fatal(err)
 	}
 
-	articlesCollection, err := setupDB(ctx, client)
+	defaultsCollection, articlesCollection, err := setupDB(ctx, client)
 	if err != nil {
 		logrus.Fatal(err)
 	}
 
 	loader := &MongoTextLoader{
 		articlesCollection,
+		defaultsCollection,
 		"",
 	}
 
@@ -69,23 +70,30 @@ func NewMongoTextLoader(ctx context.Context) ITextLoader {
 	return loader
 }
 
-func setupDB(ctx context.Context, client *mongo.Client) (articlesCollection *mongo.Collection, err error) {
+func setupDB(ctx context.Context, client *mongo.Client) (*mongo.Collection, *mongo.Collection, error) {
 	db := client.Database("texts")
+
+	err := db.CreateCollection(ctx, "defaults", options.CreateCollection())
+	if err != nil {
+		return nil, nil, err
+	}
+	defaultsCollection := db.Collection("defaults")
 
 	err = db.CreateCollection(ctx, "articles", options.CreateCollection())
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	articlesCollection = db.Collection("articles")
+	articlesCollection := db.Collection("articles")
 
-	return articlesCollection, nil
+	return defaultsCollection, articlesCollection, nil
 }
 
 var _ ITextLoader = &MongoTextLoader{}
 
 type MongoTextLoader struct {
-	articleCollection *mongo.Collection
-	currentArtikelNum string
+	articleCollection  *mongo.Collection
+	defaultsCollection *mongo.Collection
+	currentArtikelNum  string
 }
 
 func (l *MongoTextLoader) InitiateAction(articleNumber string) ITextLoader {
@@ -164,7 +172,11 @@ func (l *MongoTextLoader) LoadAuctionText(ctx context.Context) *string {
 	return &entry.Auction
 }
 
-func (l *MongoTextLoader) LoadShippingText(ctx context.Context, shippingMethod string) *string {
+type shippinmethodDoc struct {
+	Data string `bson:"data"`
+}
+
+func mapShippingToPreset(shippingMethod string) string {
 	resonse := ""
 	switch shippingMethod {
 	case VersandBrief.String():
@@ -181,7 +193,27 @@ func (l *MongoTextLoader) LoadShippingText(ctx context.Context, shippingMethod s
 		resonse = "not shipping"
 		break
 	}
-	return &resonse
+	return resonse
+}
+
+func (l *MongoTextLoader) LoadShippingText(ctx context.Context, shippingMethod string) *string {
+	var result *shippinmethodDoc
+	err := l.defaultsCollection.FindOne(ctx, bson.M{"shipping": shippingMethod}).Decode(result)
+	if err != nil {
+		logrus.WithError(err).Error("loading shipping text")
+		return nil
+	}
+
+	if result.Data == "" {
+		preset := mapShippingToPreset(shippingMethod)
+		l.SaveDefaultVersandText(ctx, Versand(shippingMethod), preset)
+		if err != nil {
+			logrus.Warn(err)
+		}
+		return &preset
+	}
+
+	return &result.Data
 }
 
 func (l *MongoTextLoader) LoadSellerText(ctx context.Context) *string {
@@ -203,5 +235,18 @@ func (l *MongoTextLoader) SaveAny(ctx context.Context, articleNum string, data *
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (l *MongoTextLoader) SaveDefaultVersandText(ctx context.Context, method Versand, data string) error {
+	_, err := l.defaultsCollection.UpdateOne(
+		ctx,
+		bson.M{"shipping": method.String()},
+		bson.M{"$set": bson.M{"data": data}},
+	)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
