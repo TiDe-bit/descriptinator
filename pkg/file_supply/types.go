@@ -50,6 +50,7 @@ type ITextLoader interface {
 	LoadSellerText(ctx context.Context) *string
 
 	LoadEntry(ctx context.Context, shippingMathod string) *Entry
+	SaveEntry(context.Context, *Entry) error
 	SaveDefaultVersandText(ctx context.Context, method Versand, data string) error
 	LoadShippingText(ctx context.Context, shippingMethod string) *string
 }

@@ -1,9 +1,36 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: Descriptinator
-  description: Descriptinator
-  version: 1.0.0
-servers:
-  - url: 'localhost:3000'
+  title: "Descriptinator Api"
+  version: "1.0.0"
+  contact:
+    name: Tim Dellmann
+    email: professional@email.com
+    url: https://github.com/TiDe-bit/
+tags:
+  - name: Description
+    description: Ebay article description 
 paths:
-  /paket
+  /:
+    get:
+      operationId: GetGenericDescription
+      summary: GetGenericDescription
+      tags: [ 'Metadata' ]
+      responses:
+        '200':
+          description: OK
+          schema:
+            text/html
+  /{articleNum}:
+    get: 
+      operationId: GetSpecificDescription
+      summary: get specific description
+      tags: [ 'Metadata' ]
+      parameters: 
+        - articleNum:
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            text/html
+  /edit/endpoint...:

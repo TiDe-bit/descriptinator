@@ -65,7 +65,7 @@ func NewMongoTextLoader(ctx context.Context) ITextLoader {
 	}
 
 	// saving default Article
-	loader.SaveAny(ctx, "", &defaultEntry)
+	loader.SaveEntry(ctx, &defaultEntry)
 
 	return loader
 }
@@ -226,12 +226,12 @@ func (l *MongoTextLoader) LoadSellerText(ctx context.Context) *string {
 	return &entry.Seller
 }
 
-func (l *MongoTextLoader) SaveAny(ctx context.Context, articleNum string, data *Entry) error {
+func (l *MongoTextLoader) SaveEntry(ctx context.Context, data *Entry) error {
 	opts := options.Update().SetUpsert(true)
 
 	update := bson.M{"$set": data}
 
-	_, err := l.articleCollection.UpdateOne(ctx, bson.M{"artikelNum": articleNum}, update, opts)
+	_, err := l.articleCollection.UpdateOne(ctx, bson.M{"artikelNum": data.ArtikelNum}, update, opts)
 	if err != nil {
 		return err
 	}
